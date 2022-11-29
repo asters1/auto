@@ -13,6 +13,13 @@ asters1Commit=$(curl -sL ${asters1Url}/commits/master |grep -o "/asters1/legado/
 echo "asters1Commit:"
 echo "${asters1Commit}"
 
+if ! ${asters1Commit} -eq ${legadoCommit}
+then
+    echo "不等"
+else
+    echo "相等"
+    
+
 
 
 
