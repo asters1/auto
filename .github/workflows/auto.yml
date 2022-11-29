@@ -13,6 +13,9 @@ jobs:
     steps:
       - name: Checkout codes
         uses: actions/checkout@v1
-      - name: Run bash
+      - name: Check New Commit
         run: |
-          bash ./legado/updateLegado.sh
+          legadoUrl=https://github.com/gedoor/legado
+          asters1Url=https://github.com/asters1/legado
+          echo "legadoUrl=$legadoUrl" >> $GITHUB_ENV
+          echo ${{ env.legadoUrl }}
