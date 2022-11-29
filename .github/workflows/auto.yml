@@ -23,13 +23,17 @@ jobs:
           legadoCommit=$(curl -sL $legadoUrl/commits/master |grep -o "/gedoor/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
           asters1Commit=$(curl -sL $asters1Url/commits/master |grep -o "/asters1/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
           if [  !${legadoCommit}==${asters1Commit} ];then
+          
           echo "不等"
           echo "legadoCommit==$legadoCommit" >> $GITHUB_ENV
+          echo "asters1Commit==$asters1Commit" >> $GITHUB_ENV
           fi
       - name: Clone and Push
         if: ${{ env.legadoCommit }}
         run: |
           git clone ${{env.legadoUrl}} cs
+          echo ${{env.asters1Commit}}
+          echo ${{env.legadoCommit}}
           cd cs
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
