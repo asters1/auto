@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "仓库地址:"
-legadoUrl="https://github.com/gedoor/legado"
+legadoUrl="https://github.wisteria.cf/gedoor/legado"
 echo $legadoUrl
 echo "我的仓库地址:"
-asters1Url="https://github.com/asters1/legado"
+asters1Url="https://github.wisteria.cf/asters1/legado"
 echo $asters1Url
 
 legadoCommit=$(curl -sL ${legadoUrl}/commits/master |grep -o "/gedoor/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
@@ -13,12 +13,12 @@ asters1Commit=$(curl -sL ${asters1Url}/commits/master |grep -o "/asters1/legado/
 echo "asters1Commit:"
 echo "${asters1Commit}"
 
-if ! ${asters1Commit} -eq ${legadoCommit}
-then
+if [ ! ${asters1Commit} == ${legadoCommit} ];then
     echo "不等"
+    exit 1
 else
     echo "相等"
-    
+fi    
 
 
 
