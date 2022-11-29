@@ -6,4 +6,10 @@ echo "我的仓库地址:"
 asters1Url="https://github.com/asters1/legado"
 echo $asters1Url
 
+legadoCommit=$(curl -sL ${legadoUrl}/commits/master |grep -o "/gedoor/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+echo "${legadoCommit}"
+
+
+
+
 
