@@ -15,7 +15,7 @@ echo "${asters1Commit}"
 
 if [ ! ${asters1Commit} == ${legadoCommit} ];then
     echo "不等"
-    echo "${{github.actor}}"
+    echo "${github.actor}"
     git clone ${legadoUrl}
 else
     echo "相等"
