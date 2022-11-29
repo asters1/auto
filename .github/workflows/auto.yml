@@ -16,4 +16,4 @@ jobs:
       - name: Run bash
         run: |
           pwd
-          bash ./sh/check.sh
+          bash ./sh/updateLegado.sh
