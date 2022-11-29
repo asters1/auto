@@ -28,7 +28,7 @@ jobs:
       - name: Clone and Push
         if: ${{ env.legadoCommit }}
         run: |
-          git clone env.legadoUrl
+          git clone ${{env.legadoUrl}}
           cd legado
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
