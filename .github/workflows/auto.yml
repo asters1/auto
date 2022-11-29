@@ -16,4 +16,4 @@ jobs:
       - name: Run bash
         run: |
           pwd
-          bash ./curl.sh
+          bash ./sh/check.sh
