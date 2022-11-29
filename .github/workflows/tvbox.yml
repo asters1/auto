@@ -1,0 +1,40 @@
+name: autoTVBOX
+
+on:
+  schedule:
+    - cron: 15,45 0-18,22-23 * * *
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - userName: takagen99
+            repoName: Box
+            branchName: main
+          - userName: asters1
+            repoName: tvbox
+            branchName: master
+          - userName: q215613905
+            repoName: TVBoxOS
+            branchName: main
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Check New Commit
+        run: |
+          chmod +x ./jq
+          upStream=https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}
+          echo "upStream=$upStream" >> $GITHUB_ENV
+          commit=$(curl -sL $upStream/commits/${{ matrix.branchName }} |grep -o "/${{ matrix.userName }}/${{ matrix.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          oldcommit=$(./jq ./tvbox/tvboxCommit.json ${{matrix.userName}})
+          echo ${oldcommit}
+
+
+
