@@ -25,9 +25,16 @@ jobs:
           if [  $legadoCommit==$asters1Commit ];then
           echo "legadoCommit==$legadoCommit" >> $GITHUB_ENV
           fi
-      - name:
+      - name: Clone and Push
         if: ${{ env.legadoCommit }}
         run: |
-          echo "不等"
+          git clone env.legadoUrl
+          cd legado
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote rm origin
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/asters1/legado"
+          git push -f -u origin master
+
 
      
