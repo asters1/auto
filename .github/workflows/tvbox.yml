@@ -33,11 +33,11 @@ jobs:
       - name: Check New Commit
         run: |
           chmod +x ./jq
-          ./jq ./tvbox/tvboxCommit.json ${{matrix.userName}}
-          #          upStream=https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}
-          #          echo "upStream=$upStream" >> $GITHUB_ENV
-          #          commit=$(curl -sL $upStream/commits/${{ matrix.branchName }} |grep -o "/${{ matrix.userName }}/${{ matrix.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
-          #          echo ${oldcommit}
-          #
-          #
-          #
+          oldcommit=$(./jq ./tvbox/tvboxCommit.json ${{matrix.userName}})
+          upStream=https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}
+          echo "upStream=$upStream" >> $GITHUB_ENV
+          commit=$(curl -sL $upStream/commits/${{ matrix.branchName }} |grep -o "/${{ matrix.userName }}/${{ matrix.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          echo ${oldcommit}
+     
+          
+          
