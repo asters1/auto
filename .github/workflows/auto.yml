@@ -18,4 +18,16 @@ jobs:
           legadoUrl=https://github.com/gedoor/legado
           asters1Url=https://github.com/asters1/legado
           echo "legadoUrl=$legadoUrl" >> $GITHUB_ENV
-          echo ${{ env.legadoUrl }}
+          echo "asters1Url=$asters1Url" >> $GITHUB_ENV
+
+          legadoCommit=$(curl -sL $legadoUrl/commits/master |grep -o "/gedoor/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          asters1Commit=$(curl -sL $asters1Url/commits/master |grep -o "/asters1/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          if [ ! $legadoCommit==$asters1Commit ];then
+          echo "legadoCommit==$legadoCommit" >> $GITHUB_ENV
+          fi
+      - name:
+        if: ${{ env.legadoCommit }}
+        run: |
+          echo "不等"
+
+     
