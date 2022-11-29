@@ -22,7 +22,7 @@ jobs:
 
           legadoCommit=$(curl -sL $legadoUrl/commits/master |grep -o "/gedoor/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
           asters1Commit=$(curl -sL $asters1Url/commits/master |grep -o "/asters1/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
-          if [ ! $legadoCommit==$asters1Commit ];then
+          if [  $legadoCommit==$asters1Commit ];then
           echo "legadoCommit==$legadoCommit" >> $GITHUB_ENV
           fi
       - name:
