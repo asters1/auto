@@ -1,0 +1,19 @@
+name: AutoCheck
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codes
+        uses: actions/checkout@v1
+      - name: Run bash
+        run: |
+          pwd
+          bash ./curl.sh
