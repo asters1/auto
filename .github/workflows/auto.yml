@@ -1,9 +1,8 @@
 name: AutoCheck
 
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: 15,45 0-18,22-23 * * *
   pull_request:
   workflow_dispatch:
 
@@ -38,7 +37,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote rm origin
-          git remote add origin "https://${{ secrets.USER }}:${{ secrets.USER_TOKEN }}@github.com/asters1/legado"
+          git remote add origin "https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/legado"
           git push -f -u origin master
 
 
