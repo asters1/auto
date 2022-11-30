@@ -24,8 +24,8 @@ jobs:
 
           fork_Commit=$(curl -sL $legadoUrl/commits/master |grep -o "/${fork_User}/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
           asters1_Commit=$(curl -sL $asters1_Url/commits/master |grep -o "/asters1/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
-          echo "${fork_Commit}"
-          echo "${asters1_Commit}"
+          echo "fork:${fork_Commit}"
+          echo "asters1:${asters1_Commit}"
           if [ ! $fork_Commit == $asters1_Commit ];then
           
           echo "不等"
