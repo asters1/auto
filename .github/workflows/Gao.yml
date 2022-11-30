@@ -1,0 +1,46 @@
+name: CheckGao
+
+on:
+  schedule:
+    - cron: 15,45 0-18,22-23 * * *
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codes
+        uses: actions/checkout@v1
+      - name: Check New Commit
+        run: |
+          fork_User=gaotianliuyun
+          fork_project=gao
+
+          fork_Url=https://github.com/${forkUrl}/${fork_project}
+          asters1_Url=https://github.com/asters1/${fork_project}
+          echo "fork_Url=$fork_Url" >> $GITHUB_ENV
+          echo "asters1_Url=$asters1_Url" >> $GITHUB_ENV
+
+          fork_Commit=$(curl -sL $legadoUrl/commits/master |grep -o "/${fork_User}/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          asters1_Commit=$(curl -sL $asters1_Url/commits/master |grep -o "/asters1/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          if [ ! $fork_Commit == $asters1_Commit ];then
+          
+          echo "不等"
+          echo "fork_Commit=$fork_Commit" >> $GITHUB_ENV
+          echo "asters1_Commit=$asters1_Commit" >> $GITHUB_ENV
+          fi
+      - name: Clone and Push
+        if: ${{ env.fork_Commit }}
+        run: |
+          git clone ${{env.fork_Url}} cs
+          echo ${{env.asters1_Commit}}
+          echo ${{env.fork_Commit}}
+          cd cs
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote rm origin
+          git remote add origin "https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/${{env.fork_Commit}}"
+          git push -f -u origin master
+
+
