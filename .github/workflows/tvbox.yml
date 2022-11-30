@@ -145,7 +145,7 @@ jobs:
             TVBoxOSC/apk/*.apk
             TVBoxOSC/source-${{ env.commitS }}.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.USER_TOKEN }}
       - name: Post To Telegram
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
