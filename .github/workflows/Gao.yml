@@ -42,7 +42,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote rm origin
-          git remote add origin "https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/${{env.fork_Commit}}"
+          git remote add origin "https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/${{env.fork_project}}"
           git push -f -u origin master
 
 
