@@ -1,4 +1,4 @@
-name: CheckGao
+name: CheckLegado
 
 on:
   schedule:
