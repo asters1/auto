@@ -20,6 +20,8 @@ jobs:
           fork_Url=https://github.com/${fork_User}/${fork_project}
           asters1_Url=https://github.com/asters1/${fork_project}
           echo "fork_Url=$fork_Url" >> $GITHUB_ENV
+          echo "fork_User=$fork_User" >> $GITHUB_ENV
+          echo "fork_project=$fork_project" >> $GITHUB_ENV
           echo "asters1_Url=$asters1_Url" >> $GITHUB_ENV
 
           fork_Commit=$(curl -sL ${fork_Url}/commits/master |grep -o "/${fork_User}/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
