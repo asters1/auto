@@ -22,7 +22,7 @@ jobs:
           echo "fork_Url=$fork_Url" >> $GITHUB_ENV
           echo "asters1_Url=$asters1_Url" >> $GITHUB_ENV
 
-          fork_Commit=$(curl -sL $legadoUrl/commits/master |grep -o "/${fork_User}/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          fork_Commit=$(curl -sL ${fork_Url}/commits/master |grep -o "/${fork_User}/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
           asters1_Commit=$(curl -sL $asters1_Url/commits/master |grep -o "/asters1/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
           echo "fork:${fork_Commit}"
           echo "asters1:${asters1_Commit}"
