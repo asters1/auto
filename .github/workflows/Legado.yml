@@ -1,4 +1,4 @@
-name: CheckLegado
+name: CheckGao
 
 on:
   schedule:
@@ -14,30 +14,37 @@ jobs:
         uses: actions/checkout@v1
       - name: Check New Commit
         run: |
-          legadoUrl=https://github.com/gedoor/legado
-          asters1Url=https://github.com/asters1/legado
-          echo "legadoUrl=$legadoUrl" >> $GITHUB_ENV
-          echo "asters1Url=$asters1Url" >> $GITHUB_ENV
+          fork_User=gedoor
+          fork_project=legado
 
-          legadoCommit=$(curl -sL $legadoUrl/commits/master |grep -o "/gedoor/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
-          asters1Commit=$(curl -sL $asters1Url/commits/master |grep -o "/asters1/legado/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
-          if [ ! $legadoCommit == $asters1Commit ];then
+          fork_Url=https://github.com/${fork_User}/${fork_project}
+          asters1_Url=https://github.com/asters1/${fork_project}
+          echo "fork_Url=$fork_Url" >> $GITHUB_ENV
+          echo "fork_User=$fork_User" >> $GITHUB_ENV
+          echo "fork_project=$fork_project" >> $GITHUB_ENV
+          echo "asters1_Url=$asters1_Url" >> $GITHUB_ENV
+
+          fork_Commit=$(curl -sL ${fork_Url}/commits/master |grep -o "/${fork_User}/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          asters1_Commit=$(curl -sL $asters1_Url/commits/master |grep -o "/asters1/${fork_project}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          echo "fork:${fork_Commit}"
+          echo "asters1:${asters1_Commit}"
+          if [ ! $fork_Commit == $asters1_Commit ];then
           
           echo "不等"
-          echo "legadoCommit=$legadoCommit" >> $GITHUB_ENV
-          echo "asters1Commit=$asters1Commit" >> $GITHUB_ENV
+          echo "fork_Commit=$fork_Commit" >> $GITHUB_ENV
+          echo "asters1_Commit=$asters1_Commit" >> $GITHUB_ENV
           fi
       - name: Clone and Push
-        if: ${{ env.legadoCommit }}
+        if: ${{ env.fork_Commit }}
         run: |
-          git clone ${{env.legadoUrl}} cs
-          echo ${{env.asters1Commit}}
-          echo ${{env.legadoCommit}}
+          git clone ${{env.fork_Url}} cs
+          echo ${{env.asters1_Commit}}
+          echo ${{env.fork_Commit}}
           cd cs
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote rm origin
-          git remote add origin "https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/legado"
+          git remote add origin "https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/${{env.fork_project}}"
           git push -f -u origin master
 
 
