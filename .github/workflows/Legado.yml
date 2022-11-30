@@ -30,7 +30,6 @@ jobs:
           echo "asters1:${asters1_Commit}"
           if [ ! $fork_Commit == $asters1_Commit ];then
           
-          echo "不等"
           echo "fork_Commit=$fork_Commit" >> $GITHUB_ENV
           echo "asters1_Commit=$asters1_Commit" >> $GITHUB_ENV
           fi
