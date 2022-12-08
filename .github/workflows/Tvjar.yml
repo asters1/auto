@@ -22,5 +22,9 @@ jobs:
           chmod +x ./jq
           oldcommit=$(./jq ./tvjar/tvjarCommit.json old)
           newcommit=$(./jq ./tvjar/tvjarCommit.json new)
-          echo $oldcommit
-          echo $newcommit
+          echo "oldcommit=$oldcommit">> $GITHUB_ENV
+          echo "newcommit=$newcommit">> $GITHUB_ENV
+      - name: Change Java
+        run: |
+          echo ${{ env.oldcommit }}
+          echo ${{ env.newcommit }}
