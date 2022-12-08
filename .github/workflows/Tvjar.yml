@@ -28,6 +28,14 @@ jobs:
         run: |
           git clone https://asters1:${{secrets.USER_TOKEN}}@github.com/asters1/tvjar_test
           cd tvjar_test
-          Change_file_path=$(git diff ${{ env.oldcommit }} ${{ env.newcommit }} --stat)
-          echo ${Change_file_path% |*}
+          Info=$(git diff ${{ env.oldcommit }} ${{ env.newcommit }} --stat)
+          Change_file_path=${Info% |*}
+          if [ ${#Change_file_path} -gt 42  ];then
+            if [ ${Change_file_path:0:42} == "app/src/main/java/com/github/catvod/spider" ];then
+                echo "匹配成功"
+            else
+                echo "失败"
+            fi
+          fi
+
 
