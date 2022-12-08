@@ -1,4 +1,4 @@
-name: CheckTVBOX
+name: CheckTvjar
 
 on:
   push:
