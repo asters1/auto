@@ -24,22 +24,26 @@ jobs:
           newcommit=$(./jq ./tvjar/tvjarCommit.json new)
           echo "oldcommit=$oldcommit">> $GITHUB_ENV
           echo "newcommit=$newcommit">> $GITHUB_ENV
-      - name: Clone Tvjar_test
+      - name: Check file
         run: |
           git clone https://asters1:${{secrets.USER_TOKEN}}@github.com/asters1/tvjar_test
           cd tvjar_test
           Info=$(git diff ${{ env.oldcommit }} ${{ env.newcommit }} --stat)
           Change_file_path=${Info% |*}
           if [ ${#Change_file_path} -gt 42  ];then
-            if [ ${Change_file_path:0:43} == "app/src/main/java/com/github/catvod/spider" ];then
-                echo "匹配成功"
-                echo ${Change_file_path:0:43}
-                echo "app/src/main/java/com/github/catvod/spider"
-            else
-                echo "失败"
-                echo ${Change_file_path:0:43}
-                echo "app/src/main/java/com/github/catvod/spider"
+            if [ ${Change_file_path:0:44} == "app/src/main/java/com/github/catvod/spider/" ];then
+            echo "Change_file_path=$Change_file_path" >> $GITHUB_ENV
+
             fi
           fi
+      - name: Clone tvjar_test and tvjar
+        if: ${{ env.Change_file_path }}
+        run: |
+          git clone https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/tvjar_test
+          git clone https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/tvjar
+          cd tvjar
+          rm ${{ env.Change_file_path}}
+          cp ../${{ env.Change_file_path }} ${{ env.Change_file_path }}
+
 
 
