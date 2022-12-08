@@ -27,3 +27,7 @@ jobs:
       - name: Change Java
         run: |
           echo ${{ env.oldcommit }}
+          echo ${{ env.newcommit }}
+          Change_file_path=$(git diff ${{ oldcommit }} ${{ env.newcommit }} --stat)
+          echo $Change_file_path
+
