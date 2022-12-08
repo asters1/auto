@@ -29,5 +29,5 @@ jobs:
           git clone https://asters1:${{secrets.USER_TOKEN}}@github.com/asters1/tvjar_test
           cd tvjar_test
           Change_file_path=$(git diff ${{ env.oldcommit }} ${{ env.newcommit }} --stat)
-        echo ${Change_file_path%|*}
+          echo ${Change_file_path% |*}
 
