@@ -40,9 +40,10 @@ jobs:
         if: ${{ env.Change_file_path }}
         run: |
           git clone https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/tvjar_test
-          git clone https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/tvjar
-          cd tvjar
-          rm -r ./${{ env.Change_file_path}}
+          ls
+          #git clone https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/tvjar
+          #cd tvjar
+          #rm -r ./${{ env.Change_file_path}}
           #cp ../tvjar_test/${{ env.Change_file_path }} ${{ env.Change_file_path }}
 
 
