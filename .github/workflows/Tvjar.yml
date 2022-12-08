@@ -43,7 +43,7 @@ jobs:
           git clone https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/tvjar
           cd tvjar
           rm ${{ env.Change_file_path}}
-          cp ../${{ env.Change_file_path }} ${{ env.Change_file_path }}
+          cp ../tvjar_test/${{ env.Change_file_path }} ${{ env.Change_file_path }}
 
 
 
