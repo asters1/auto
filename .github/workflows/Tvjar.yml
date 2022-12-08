@@ -33,8 +33,12 @@ jobs:
           if [ ${#Change_file_path} -gt 42  ];then
             if [ ${Change_file_path:0:42} == "app/src/main/java/com/github/catvod/spider" ];then
                 echo "匹配成功"
+                echo ${Change_file_path:0:42}
+                echo "app/src/main/java/com/github/catvod/spider"
             else
                 echo "失败"
+                echo ${Change_file_path:0:42}
+                echo "app/src/main/java/com/github/catvod/spider"
             fi
           fi
 
