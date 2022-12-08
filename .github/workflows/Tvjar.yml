@@ -24,10 +24,10 @@ jobs:
           newcommit=$(./jq ./tvjar/tvjarCommit.json new)
           echo "oldcommit=$oldcommit">> $GITHUB_ENV
           echo "newcommit=$newcommit">> $GITHUB_ENV
-      - name: Change Java
+      - name: Clone Tvjar_test
         run: |
-          echo ${{ env.oldcommit }}
-          echo ${{ env.newcommit }}
+          git clone https://asters1:${{secrets.USER_TOKEN}}@github.com/asters1/tvjar_test
+          cd tvjar_test
           Change_file_path=$(git diff ${{ env.oldcommit }} ${{ env.newcommit }} --stat)
           echo $Change_file_path
 
