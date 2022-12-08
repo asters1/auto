@@ -6,12 +6,12 @@ on:
       - master
         #  paths:
         #    - 'tvjar/tvjarCommit.json'
-  pull_request:
-  workflow_dispatch:
+    pull_request:
+      workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+        jobs:
+          build:
+            runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -28,3 +28,5 @@ jobs:
         run: |
           echo ${{ env.oldcommit }}
           echo ${{ env.newcommit }}
+          Change_file_path=$(git diff ${{ oldcommit }} ${{ env.newcommit }} --stat)
+          echo $Change_file_path
