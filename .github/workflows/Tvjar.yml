@@ -43,6 +43,11 @@ jobs:
           cd tvjar1
           rm -r ${{ env.Change_file_path}}
           cp ../tvjar_test/${{ env.Change_file_path }} ${{ env.Change_file_path }}
+          sed -i '/extends Spider/a}' ${{ env.Change_file_path }}
+          sed -i '/extends Spider/asuper.init(context);' ${{ env.Change_file_path }}
+          sed -i '/extends Spider/apublic void init(Context context) {}' ${{ env.Change_file_path }}
+          sed -i '/extends Spider/a@Override}' -i ${{ env.Change_file_path }}
+          sed -i '/package com.github.catvod.spider;/aimport android.content.Context;' ${{ env.Change_file_path }}
           cat ${{ env.Change_file_path }}
 
 
