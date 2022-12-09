@@ -37,7 +37,7 @@ jobs:
 
             fi
           fi
-      - name: Clone tvjar_test and tvjar
+      - name: Clone tvjar
         if: ${{ env.Change_file_path }}
         run: |
           git clone https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/tvjar tvjar1
