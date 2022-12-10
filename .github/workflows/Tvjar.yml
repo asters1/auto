@@ -42,7 +42,7 @@ jobs:
         run: |
           git clone https://asters1:${{ secrets.USER_TOKEN }}@github.com/asters1/tvjar tvjar1
           cd tvjar1
-          rm -r ${{ env.Change_file_path}}
+          rm -rf ${{ env.Change_file_path}}
           cp ../tvjar_test/${{ env.Change_file_path }} ${{ env.Change_file_path }}
           sed -i '/extends Spider/a}' ${{ env.Change_file_path }}
           sed -i '/extends Spider/asuper.init(context);' ${{ env.Change_file_path }}
