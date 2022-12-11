@@ -31,6 +31,7 @@ jobs:
           Info=$(git diff ${{ env.oldcommit }} ${{ env.newcommit }} --stat)
           Change_file_path=${Info% |*}
           if [ ${#Change_file_path} -gt 42  ];then
+          echo ${Change_file_path:0:44}
             if [ ${Change_file_path:0:44} == "app/src/main/java/com/github/catvod/spider/" ];then
             echo "Change_file_path=${Change_file_path# }" >> $GITHUB_ENV
             echo "Change_file_name=${Change_file_path##*/}" >> $GITHUB_ENV
