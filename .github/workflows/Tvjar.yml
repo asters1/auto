@@ -32,16 +32,10 @@ jobs:
           echo $Info
           commit_info=$(git log --pretty=format:%B ${{ env.newcommit }} -1 |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2-)
           echo $commit_info
-          Change_file_path=${Info% |*}
-          if [ ${#Change_file_path} -gt 42  ];then
-          echo ${Change_file_path:0:44} 
-          echo "app/src/main/java/com/github/catvod/spider/"
-            if [ ${Change_file_path:0:44} == "app/src/main/java/com/github/catvod/spider/" ];then
-            echo "Change_file_path=${Change_file_path# }" >> $GITHUB_ENV
-            echo "Change_file_name=${Change_file_path##*/}" >> $GITHUB_ENV
-
+            if [[ $commit_info = *.java ]];then
+            echo "Change_file_path=app/src/main/java/com/github/catvod/spider/${commit_info}" >> $GITHUB_ENV
+            echo "Change_file_name=${commit_info}" >> $GITHUB_ENV
             fi
-          fi
       - name: Clone tvjar
         if: ${{ env.Change_file_path }}
         run: |
