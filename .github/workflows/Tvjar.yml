@@ -30,6 +30,8 @@ jobs:
           cd tvjar_test
           Info=$(git diff ${{ env.oldcommit }} ${{ env.newcommit }} --stat)
           echo $Info
+          commit_info=$(git log --pretty=format:%B ${{ env.newcommit }} -1 |sed -e "s# \{2,\}#\n#g" -e "/^Merge \(pull\|branch\|remote\)/d" -e '/^$/d' |cat -n |sort -k2,2 -k1,1n |uniq -f1 |sort -k1,1n |cut -f2-)
+          echo $commit_info
           Change_file_path=${Info% |*}
           if [ ${#Change_file_path} -gt 42  ];then
           echo ${Change_file_path:0:44} 
